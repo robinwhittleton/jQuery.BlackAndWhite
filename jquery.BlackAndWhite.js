@@ -172,10 +172,11 @@
 						src = pic.src,
 						width = $img.width(),
 						height = $img.height(),
+						position = $img.position(),
 						css = {
 										'position': 'absolute',
-										top: 0,
-										left: 0,
+										top: position.top,
+										left: position.left,
 										display: invertHoverEffect ? 'none' : 'block'
 									};
 				if (supportsCanvas && !cssfilters) {
