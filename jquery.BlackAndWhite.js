@@ -194,7 +194,8 @@
 						top: position.top,
 						left: position.left,
 						display: invertHoverEffect ? 'none' : 'block'
-					};
+					},
+					$overlay;
 
 				if (supportsCanvas && !cssfilters) {
 
@@ -202,22 +203,22 @@
 						realHeight = pic.height;
 
 					//adding the canvas
-					$('<canvas class="BWfade" width="' + realWidth + '" height="' + realHeight + '"></canvas>').prependTo($imageWrapper);
-					//getting the canvas
-					var $canvas = $imageWrapper.find('canvas');
+					$overlay = $('<canvas class="BWfade" width="' + realWidth + '" height="' + realHeight + '"></canvas>');
 					//setting the canvas position on the Pics
-					$canvas.css(css);
+					$overlay.css(css);
+					$overlay.prependTo($imageWrapper)
 
-					_manipulateImage(pic, $canvas[0], realWidth, realHeight);
+					_manipulateImage(pic, $overlay.get(0), realWidth, realHeight);
 
 				} else {
 
 					css[cssPrefix('Filter')] = 'grayscale(' + intensity * 100 + '%)';
 					//adding the canvas
-					$('<img src=' + src + ' width="' + width + '" height="' + height + '" class="BWFilter BWfade" /> ').prependTo($imageWrapper);
-					$('.BWFilter').css($.extend(css, {
+					$overlay = $('<img src=' + src + ' width="' + width + '" height="' + height + '" class="BWFilter BWfade" /> ');
+					$overlay.css($.extend(css, {
 						'filter': 'progid:DXImageTransform.Microsoft.BasicImage(grayscale=1)'
 					}));
+					$overlay.prependTo($imageWrapper)
 
 					_onImageReady(pic);
 				}
